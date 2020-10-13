@@ -1176,6 +1176,9 @@ public class Const {
   // See PDI-PDI-18739 for details
   public static final String KETTLE_COMPATIBILITY_TEXT_FILE_INPUT_USE_LENIENT_ENCLOSURE_HANDLING = "KETTLE_COMPATIBILITY_TEXT_FILE_INPUT_USE_LENIENT_ENCLOSURE_HANDLING";
 
+  // See PDI-18810 for details
+  public static final String KETTLE_COMPATIBILITY_MDI_INJECTED_FILE_ALWAYS_IN_FILESYSTEM = "KETTLE_COMPATIBILITY_MDI_INJECTED_FILE_ALWAYS_IN_FILESYSTEM";
+
   /**
    * The XML file that contains the list of native import rules
    */
@@ -1240,6 +1243,16 @@ public class Const {
    * {@linkplain org.apache.commons.vfs2.provider.sftp.SftpFileSystemConfigBuilder#USER_DIR_IS_ROOT}
    */
   public static final String VFS_USER_DIR_IS_ROOT = "vfs.sftp.userDirIsRoot";
+
+  /**
+   * A variable to configure environment variables to ignore when initializing shell step
+   * */
+  public static final String SHELL_STEP_ENVIRONMENT_VARIABLES_TO_IGNORE = "SHELL_STEP_ENVIRONMENT_VARIABLES_TO_IGNORE";
+
+  /**
+   * The default value for the variable to configure environment variables to ignore when initializing shell step
+   * */
+  public static final String SHELL_STEP_ENVIRONMENT_VARIABLES_TO_IGNORE_DEFAULT = "";
 
   /**
    * <p>A variable to configure the minimum allowed ratio between de- and inflated bytes to detect a zipbomb.</p>
