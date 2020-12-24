@@ -754,6 +754,12 @@ public class Const {
    */
   public static final String KETTLE_DO_NOT_NORMALIZE_NULL_STRING_TO_EMPTY = "KETTLE_DO_NOT_NORMALIZE_NULL_STRING_TO_EMPTY";
 
+
+  /**
+   * This flag will force to return the original string with only spaces instead of an empty string.
+   */
+  public static final String KETTLE_DO_NOT_NORMALIZE_SPACES_ONLY_STRING_TO_EMPTY = "KETTLE_DO_NOT_NORMALIZE_SPACES_ONLY_STRING_TO_EMPTY";
+
   /**
    * This flag will prevent Kettle from yielding {@code null} as the value of an empty XML tag in {@link org.pentaho.di.core.xml.XMLHandler}
    * The default value is {@code false} and an empty XML tag will produce a {@code null} value.
@@ -1142,6 +1148,11 @@ public class Const {
    * Changing it to true will clear all global log variables when export transformation / job
    */
   public static final String KETTLE_GLOBAL_LOG_VARIABLES_CLEAR_ON_EXPORT = "KETTLE_GLOBAL_LOG_VARIABLES_CLEAR_ON_EXPORT";
+
+  /**
+   * Property controls the capacity of the transFinishedBlockingQueue in Trans.
+   */
+  public static final String KETTLE_TRANS_FINISHED_BLOCKING_QUEUE_SIZE = "KETTLE_TRANS_FINISHED_BLOCKING_QUEUE_SIZE";
 
   /**
    * Compatibility settings for {@link org.pentaho.di.core.row.ValueDataUtil#hourOfDay(ValueMetaInterface, Object)}.

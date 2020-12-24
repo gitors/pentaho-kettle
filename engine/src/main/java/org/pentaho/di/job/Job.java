@@ -556,12 +556,20 @@ public class Job extends Thread implements VariableSpace, NamedParams, HasLogCha
       result.setRows( getSourceRows() );
     }
 
-    startpoint = jobMeta.findJobEntry( JobMeta.STRING_SPECIAL_START, 0, false );
-    if ( startpoint == null ) {
+    JobEntryCopy normalStartpoint = jobMeta.findJobEntry( JobMeta.STRING_SPECIAL_START, 0, false );
+    if ( startJobEntryCopy == null ) {
+      startpoint = normalStartpoint;
+    } else {
+      //We are re-running a sub-job from a checkpoint here
+      startpoint = startJobEntryCopy;
+      result = startJobEntryResult;
+    }
+
+    if ( normalStartpoint == null ) {
       throw new KettleJobException( BaseMessages.getString( PKG, "Job.Log.CounldNotFindStartingPoint" ) );
     }
 
-    JobEntrySpecial jes = (JobEntrySpecial) startpoint.getEntry();
+    JobEntrySpecial jes = (JobEntrySpecial) normalStartpoint.getEntry();
     Result res;
     do {
       res = execute( nr, result, startpoint, null, BaseMessages.getString( PKG, "Job.Reason.StartOfJobentry" ) );
@@ -1162,7 +1170,7 @@ public class Job extends Thread implements VariableSpace, NamedParams, HasLogCha
       ldb.writeLogRecord( jobLogTable, status, this, null );
 
       if ( cleanLogRecords ) {
-        ldb.cleanupLogRecords( jobLogTable );
+        ldb.cleanupLogRecords( jobLogTable, getName() );
       }
 
     } catch ( KettleDatabaseException dbe ) {
@@ -1209,7 +1217,7 @@ public class Job extends Thread implements VariableSpace, NamedParams, HasLogCha
 
       // Also time-out the log records in here...
       //
-      db.cleanupLogRecords( channelLogTable );
+      db.cleanupLogRecords( channelLogTable, getName() );
 
     } catch ( Exception e ) {
       throw new KettleException( BaseMessages.getString( PKG,
@@ -1241,7 +1249,7 @@ public class Job extends Thread implements VariableSpace, NamedParams, HasLogCha
         db.writeLogRecord( jobEntryLogTable, LogStatus.START, copy, this );
       }
 
-      db.cleanupLogRecords( jobEntryLogTable );
+      db.cleanupLogRecords( jobEntryLogTable, getName() );
     } catch ( Exception e ) {
       throw new KettleException( BaseMessages.getString( PKG, "Job.Exception.UnableToJobEntryInformationToLogTable" ),
           e );
